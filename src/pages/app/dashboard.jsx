@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
+import { createTask } from '../../api/create-task'
 import { Logo } from '../../components/Logo'
 
 export function Dashboard() {
@@ -13,7 +14,12 @@ export function Dashboard() {
 
   // getTasks
 
-  // Add Task
+  const { mutateAsync: addTask, isPending: isPendingAddTask } = useMutation({
+    mutationFn: createTask,
+    onSuccess() {
+      queryClient.invalidateQueries('tasks')
+    },
+  })
 
   // deleteTask
 
@@ -48,7 +54,7 @@ export function Dashboard() {
     event.preventDefault()
 
     try {
-      // await addTask({ title: newTask })
+      await addTask({ title: newTask })
     } catch (error) {
       toast.error('Erro ao cadastrar tarefa.')
     }
@@ -58,7 +64,6 @@ export function Dashboard() {
 
   const todoList = []
 
-  const isPendingAddTask = false
   const isLoadingTask = false
 
   return (
