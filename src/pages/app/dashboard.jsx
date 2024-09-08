@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { createTask } from '../../api/create-task'
+import { getTasks } from "../../api/get-tasks";
 import { Logo } from '../../components/Logo'
 
 export function Dashboard() {
@@ -13,6 +14,11 @@ export function Dashboard() {
   const [newTask, setNewTask] = useState('')
 
   // getTasks
+
+  const { data: tasks, isLoading: isLoadingTask } = useQuery({
+    queryKey: ['tasks'],
+    queryFn: getTasks,
+  })
 
   const { mutateAsync: addTask, isPending: isPendingAddTask } = useMutation({
     mutationFn: createTask,
@@ -62,9 +68,7 @@ export function Dashboard() {
     setNewTask('')
   }
 
-  const todoList = []
-
-  const isLoadingTask = false
+  const todoList = tasks ?? []
 
   return (
     <>
