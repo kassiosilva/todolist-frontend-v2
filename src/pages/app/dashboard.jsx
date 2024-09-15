@@ -47,6 +47,8 @@ export function Dashboard() {
 
   function handleLogout() {
     localStorage.clear()
+    queryClient.clear()
+
     navigate('/signin', { replace: true })
   }
 
