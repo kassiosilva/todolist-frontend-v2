@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { createTask } from '../../api/create-task'
-import { getTasks } from "../../api/get-tasks";
+import { getTasks } from '../../api/get-tasks'
 import { Logo } from '../../components/Logo'
 
 export function Dashboard() {
