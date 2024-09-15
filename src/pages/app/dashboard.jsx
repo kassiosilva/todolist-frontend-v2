@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { createTask } from '../../api/create-task'
+import { deleteTask } from '../../api/delete-task'
 import { getTasks } from '../../api/get-tasks'
+import { putTask } from '../../api/update-task'
 import { Logo } from '../../components/Logo'
 
 export function Dashboard() {
@@ -12,8 +14,6 @@ export function Dashboard() {
   const navigate = useNavigate()
 
   const [newTask, setNewTask] = useState('')
-
-  // getTasks
 
   const { data: tasks, isLoading: isLoadingTask } = useQuery({
     queryKey: ['tasks'],
@@ -27,9 +27,19 @@ export function Dashboard() {
     },
   })
 
-  // deleteTask
+  const { mutateAsync: removeTask } = useMutation({
+    mutationFn: deleteTask,
+    onSuccess() {
+      queryClient.invalidateQueries('tasks')
+    },
+  })
 
-  // putTask
+  const { mutateAsync: updateTask } = useMutation({
+    mutationFn: putTask,
+    onSuccess() {
+      queryClient.invalidateQueries('tasks')
+    },
+  })
 
   function handleNewTaskName(event) {
     setNewTask(event.target.value)
@@ -42,7 +52,7 @@ export function Dashboard() {
 
   async function handleTaskDelete(id) {
     try {
-      // await removeTask(id)
+      await removeTask(id)
     } catch (error) {
       toast.error('Erro ao deletar tarefa')
     }
@@ -50,7 +60,7 @@ export function Dashboard() {
 
   async function handleUpdateTask({ id, event }) {
     try {
-      // await updateTask({ id, completed: event.target.checked })
+      await updateTask({ id, completed: event.target.checked })
     } catch (error) {
       toast.error('Erro ao completar tarefa.')
     }
