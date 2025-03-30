@@ -8,7 +8,7 @@
 
 ## 💻 Sobre o projeto
 
-> Foi desenvolvido também o **backend Minhas listas**. Se quiser olhar como ficou [clique aqui](https://github.com/kassiosilva/api-todo-list-v2).
+> Foi desenvolvido também o **backend Minhas Tarefas**. Se quiser olhar como ficou [clique aqui](https://github.com/kassiosilva/api-todo-list-v2).
 
 Esse front end traz todas as principais funcionalidades de uma lista de tarefas, além de se comunicar com uma API REST para para salvar suas tarefas.
 
